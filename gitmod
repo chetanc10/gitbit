@@ -1,0 +1,42 @@
+#!/bin/bash
+
+cmd=$(basename $0)
+
+usageStr="$cmd helps view or revert uncommitted file changes in git repo.
+
+Usage: $cmd [-h] [-d path]
+-h      - Optional; Displays this help message and exits
+-d path - Optional; Filters modified files/folders using given path
+NOTE: If user just presses <ENTER>, $cmd goes to next modified file
+"
+
+[ "$1" == "-h" ] && printf "${usageStr}" && exit 0
+
+[ "$1" == "-d" ] && dir="$2" && dir="${dir#./}" || dir=""
+
+_gitmod_act()
+{
+	local f=${@}
+	while true; do
+		read -p "*********** ${f} o(open diff & file) u(undo) x(exit): " op
+		case $op in
+			o) vim -R <(git diff ${f}) -O ${f} -c "wincmd l | set noreadonly" ;;
+			u) git checkout "${f}" ; break ;;
+			x) rm -rf ${modlist} && exit 0 ;;
+			*) break ;;
+		esac
+	done
+}
+
+modlist=/tmp/git-mod-file.lst
+git diff --name-only > ${modlist}
+
+while read -r line <&3; do
+	file="$(echo ${line} | awk '{print $1}')"
+	[ -n "${dir}" ] && [[ "${file}" != *${dir}* ]] && continue
+	_gitmod_act "$file"
+done 3<${modlist}
+
+rm -rf ${modlist}
+
+exit 0

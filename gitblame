@@ -1,0 +1,15 @@
+#!/bin/bash
+
+([ $# -eq 0 ] || [ ! -f "${@}" ]) && echo "Usage: $0 <file>" && exit 0
+
+file="${@}"
+blame_logf="/tmp/$(basename $file)"
+
+echo -e "File : ${file} ($(realpath ${file})) ----------------\n" >> ${blame_logf}
+
+git blame "${file}" > ${blame_logf} || exit $?
+
+[ -z $VIMRUNTIME ] && vim ${blame_logf}
+
+exit 0
+

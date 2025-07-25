@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Many git aliases are present in bash-it, following are missing there.
+
+alias gcfg='LESS=-eFRX git config -l'
+
+alias glt="LESS=-eFRX git log --pretty=oneline --abbrev-commit"
+
+alias glth='glt | head'
+
+alias glog='LESS=-eFRX git log'
+
+gitd ()
+{
+  git diff --quiet ${@} || LESS=-eFRX git diff ${@}
+}
+
