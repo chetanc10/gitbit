@@ -2,16 +2,26 @@
 
 # Many git aliases are present in bash-it, following are missing there.
 
+# git status of modified and staged tracked files only
+alias gsm='git status -uno'
+
+# git list untracked files/directories only
+alias glu='git ls-files --others --exclude-standard'
+
+# list git configuration
 alias gcfg='LESS=-eFRX git config -l'
 
-alias glt="LESS=-eFRX git log --pretty=oneline --abbrev-commit"
+# show git log in abbreviated format (one-line per commit)
+alias glt='LESS=-eFRX git log --pretty=oneline --abbrev-commit'
 
+# show git log head with glt cmd-alias output
 alias glth='glt | head'
 
+# show git log with full information per each commit
 alias glog='LESS=-eFRX git log'
 
-gitd ()
+# get git diff for given file or 2 commits.
+gdf ()
 {
   git diff --quiet ${@} || LESS=-eFRX git diff ${@}
 }
-
