@@ -9,16 +9,16 @@ alias gsm='git status -uno'
 alias glu='git ls-files --others --exclude-standard'
 
 # list git configuration
-alias gcfg='LESS=-eFRX git config -l'
+alias gcfg='git config -l'
 
 # show git log in abbreviated format (one-line per commit)
-alias glt='LESS=-eFRX git log --pretty=oneline --abbrev-commit'
+alias glt='git log --pretty=oneline --abbrev-commit'
 
 # show git log head with glt cmd-alias output
 alias glth='glt | head'
 
 # show git log with full information per each commit
-alias glog='LESS=-eFRX git log'
+alias glog='git log'
 
 # get git diff for given file or 2 commits.
 gdf ()
