@@ -1,6 +1,6 @@
 #!/bin/bash
 
-([ $# -eq 0 ] || [ ! -f "${@}" ]) && echo "Usage: $0 <file>" && exit 0
+([ $# -eq 0 ] || [ ! -f "${@}" ]) && echo "Usage: $(basename $0) <file>" && exit 0
 
 file="${@}"
 blame_logf="/tmp/$(basename $file)"
