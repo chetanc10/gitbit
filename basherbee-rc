@@ -1,27 +1,60 @@
 #!/bin/bash
 
-# Many git aliases are present in bash-it, following are missing there.
+alias gb='git branch'
 
-# git status of modified and staged tracked files only
-alias gsm='git status -uno'
+alias ga='git add'
 
-# git list untracked files/directories only
-alias glu='git ls-files --others --exclude-standard'
+alias gc='git commit -s -v'
+alias gcm='git commit -s -m'
 
-# list git configuration
-alias gcfg='git config -l'
+alias gcl='git clone'
 
-# show git log in abbreviated format (one-line per commit)
-alias glt='git log --pretty=oneline --abbrev-commit'
+alias gco='git checkout'
 
-# show git log head with glt cmd-alias output
-alias glth='glt | head'
+alias gcp='git cherry-pick'
 
-# show git log with full information per each commit
-alias glog='git log'
-
-# get git diff for given file or 2 commits.
+alias gd='git diff'
 gdf ()
 {
   git diff --quiet ${@} || LESS=-eFRX git diff ${@}
 }
+
+alias gf='git fetch --all --prune'
+
+alias gl='git pull --prune'
+
+alias gll='git log --graph --pretty=oneline --abbrev-commit'
+alias glog='git log'
+
+alias gs='git status'
+alias gsm='git status -uno'
+alias gss='git status -s'
+
+alias gcfg='git config -l'
+
+alias gp='git push'
+
+alias glt='git log --pretty=format:'\''%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d'\'' --decorate --date=short'
+alias glth='git log --pretty=format:'\''%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d'\'' --decorate --date=short | head'
+
+alias grh='git reset --hard'
+
+alias grv='git remote -v'
+
+_gig ()
+{
+	[ $# -lt 2 ] && echo "Usage: gig$1 <file-name-to-git-ignore>" && return 0
+
+	if [ "$1" == "local" ]; then
+		local f="$(git rev-parse --show-toplevel)/.gitignore"
+	else
+		local f="$(git config --global core.excludesfile)"
+	fi
+	[ ! -f "$f" ] && echo "ERROR: $1 git-ignore file not found!" && return -1
+
+	! grep -qxF "$2" "$f" && echo "$2" >> "$f"
+
+	return 0
+}
+alias gigl="_gig local"
+alias gigg="_gig global"
