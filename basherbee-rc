@@ -21,10 +21,11 @@ gdf ()
 
 alias gf='git fetch --all --prune'
 
-alias gl='git pull --prune'
+alias gll='git pull --prune'
 
-alias gll='git log --graph --pretty=oneline --abbrev-commit'
 alias glog='git log'
+alias glt="git log --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d' --decorate --date=format:'%d-%b\`%y %H:%M %z'"
+alias glth="git log --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d' --decorate --date=format:'%d-%b\`%y %H:%M %z' | head"
 
 alias gs='git status'
 alias gsm='git status -uno'
@@ -33,9 +34,6 @@ alias gss='git status -s'
 alias gcfg='git config -l'
 
 alias gp='git push'
-
-alias glt='git log --pretty=format:'\''%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d'\'' --decorate --date=short'
-alias glth='git log --pretty=format:'\''%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d'\'' --decorate --date=short | head'
 
 alias grh='git reset --hard'
 
