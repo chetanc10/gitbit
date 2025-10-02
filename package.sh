@@ -1,1 +1,1 @@
-BINS=gitmod:gitblame
+BINS=gitmod
